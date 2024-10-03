@@ -4,13 +4,13 @@ export default function Home() {
   return (
     <>
       <View style={s.meteo_basic}>
-        <Text>Basic info</Text>
+        <Text style={s.txt}>Basic info</Text>
       </View>
       <View style={s.search_container}>
-        <Text>Input Section</Text>
+        <Text style={s.txt}>Input Section</Text>
       </View>
       <View style={s.meteo_advanced}>
-        <Text>Advanced Info</Text>
+        <Text style={s.txt}>Advanced Info</Text>
       </View>
     </>
   );

@@ -6,5 +6,9 @@ export const s = StyleSheet.create({
   },
   img_background: {
     height: "100%",
+    backgroundColor: "black",
+  },
+  img: {
+    opacity: 0.75,
   },
 });
