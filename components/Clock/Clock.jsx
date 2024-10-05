@@ -6,11 +6,13 @@ import { useEffect, useState } from "react";
 export default function Clock() {
   const [time, setTime] = useState(nowToHHMM());
   useEffect(() => {
-    setInterval(() => {
+    const intervalID = setInterval(() => {
       setTime(nowToHHMM());
     }, 1000);
+    return () => {
+      clearInterval(intervalID);
+    };
   }, []);
-
 
   return (
     <View>
