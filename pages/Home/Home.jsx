@@ -1,14 +1,21 @@
 import { View } from "react-native";
 import { s } from "./Home.style";
 import Txt from "../../components/Txt/Txt";
-export default function Home() {
+import WeatherBasic from "../../components/WeatherBasic/WeatherBasic";
+import { getWeatherInterpretation } from "../../utils/weather-utils";
+export default function Home({ weather }) {
+  const CurrentWeather = weather?.current_weather;
+  const currentInterpretation = getWeatherInterpretation(CurrentWeather.weathercode);
   return (
     <>
       <View style={s.meteo_basic}>
-        <Txt onPress={()=>console.log("hello")}>Head</Txt>
+        <WeatherBasic
+          temperature={Math.round(CurrentWeather.temperature)}
+          interpretation={currentInterpretation}
+        />
       </View>
       <View style={s.search_container}>
-        <Txt >Input Section</Txt>
+        <Txt>Input Section</Txt>
       </View>
       <View style={s.meteo_advanced}>
         <Txt>Advanced Info</Txt>
