@@ -1,24 +1,22 @@
 import { Image, View } from "react-native";
 import Txt from "../Txt/Txt.jsx";
 import { s } from "./WeatherBasic.style.js";
+import Clock from "../Clock/Clock.jsx";
 export default function WeatherBasic({ temperature, interpretation }) {
   return (
     <>
       <View style={s.clock}>
-        <Txt>Clock</Txt>
+        <Clock />
       </View>
       <View style={s.city}>
         <Txt>City</Txt>
       </View>
       <View style={s.interpretation}>
-        <Txt style={s.interpretation_text}>{ interpretation.label}</Txt>
+        <Txt style={s.interpretation_text}>{interpretation.label}</Txt>
       </View>
       <View style={s.temp_container}>
         <Txt style={s.temp}>{temperature}°</Txt>
-        <Image
-          style={s.image}
-          source={interpretation?.image}
-        />
+        <Image style={s.image} source={interpretation?.image} />
       </View>
     </>
   );

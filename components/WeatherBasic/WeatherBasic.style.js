@@ -14,7 +14,7 @@ export const s = StyleSheet.create({
     alignItems: "baseline",
   },
   temp: {
-    fontSize: 150,
+    fontSize: 100,
   },
   image: { height: 90, width: 90, },
 });
