@@ -8,12 +8,18 @@ import {
   requestForegroundPermissionsAsync,
   getCurrentPositionAsync,
 } from "expo-location";
+import { useFonts } from "expo-font";
 
 import { WeatherAPI } from "./api/weather";
 
 export default function App() {
   const [coordinates, setCoordinates] = useState();
   const [weather, setWeather] = useState();
+  const [isFontLoaded] = useFonts({
+    "Alata-Regular": require("./assets/fonts/Alata-Regular.ttf"),
+  });
+  console.log(isFontLoaded);
+
   useEffect(() => {
     getUserCoordinates();
   }, []);
@@ -24,16 +30,16 @@ export default function App() {
     }
   }, [coordinates]);
 
-async function fetchWeatherFromCoords(coordinates) {
-  try {
-    const weatherRes = await WeatherAPI.fetchWeatherByCoords(coordinates);
-    console.log(weatherRes);
-    setWeather(weatherRes);
-  } catch (error) {
-    console.error("Error fetching weather data:", error);
-    setWeather(null); // or handle the error state as needed
+  async function fetchWeatherFromCoords(coordinates) {
+    try {
+      const weatherRes = await WeatherAPI.fetchWeatherByCoords(coordinates);
+      console.log(weatherRes);
+      setWeather(weatherRes);
+    } catch (error) {
+      console.error("Error fetching weather data:", error);
+      setWeather(null); // or handle the error state as needed
+    }
   }
-}
 
   async function getUserCoordinates() {
     const { status } = await requestForegroundPermissionsAsync();
@@ -56,7 +62,7 @@ async function fetchWeatherFromCoords(coordinates) {
     >
       <SafeAreaProvider>
         <SafeAreaView style={s.container}>
-          <Home />
+          {isFontLoaded && <Home />}
         </SafeAreaView>
       </SafeAreaProvider>
     </ImageBackground>

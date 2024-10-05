@@ -1,16 +1,17 @@
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import { s } from "./Home.style";
+import Txt from "../../components/Txt/Txt";
 export default function Home() {
   return (
     <>
       <View style={s.meteo_basic}>
-        <Text style={s.txt}>Basic info</Text>
+        <Txt onPress={()=>console.log("hello")}>Head</Txt>
       </View>
       <View style={s.search_container}>
-        <Text style={s.txt}>Input Section</Text>
+        <Txt >Input Section</Txt>
       </View>
       <View style={s.meteo_advanced}>
-        <Text style={s.txt}>Advanced Info</Text>
+        <Txt>Advanced Info</Txt>
       </View>
     </>
   );
