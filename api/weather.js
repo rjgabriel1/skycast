@@ -11,6 +11,21 @@ class WeatherAPI {
       console.log(error);
     }
   }
+
+  static async getCityByCoords(coords) {
+    try {
+      const {
+        adress: { city, village, town },
+      } = (
+        await axios.get(
+          `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${coords.lat}&lon=${coords.lng}`
+        )
+      ).data;
+      return city || village || town;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 
 export { WeatherAPI };
