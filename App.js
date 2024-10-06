@@ -20,7 +20,6 @@ export default function App() {
   const [isFontLoaded] = useFonts({
     "Alata-Regular": require("./assets/fonts/Alata-Regular.ttf"),
   });
-  console.log(isFontLoaded);
 
   useEffect(() => {
     getUserCoordinates();
@@ -36,7 +35,6 @@ export default function App() {
   async function fetchWeatherFromCoords(coords) {
     try {
       const weatherRes = await WeatherAPI.fetchWeatherByCoords(coords);
-      console.log(weatherRes);
       setWeather(weatherRes);
     } catch (error) {
       console.error("Error fetching weather data:", error);
@@ -47,7 +45,6 @@ export default function App() {
   async function fetchCityFromCoords(coords) {
     try {
       const cityRes = await WeatherAPI.getCityByCoords(coords);
-      console.log(cityRes);
       setCity(cityRes);
     } catch (error) {
       console.error("Error fetching weather data:", error);

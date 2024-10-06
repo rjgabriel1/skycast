@@ -15,13 +15,13 @@ class WeatherAPI {
   static async getCityByCoords(coords) {
     try {
       const {
-        adress: { city, village, town },
+        address: { city, village, town, city_district },
       } = (
         await axios.get(
           `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${coords.lat}&lon=${coords.lng}`
         )
       ).data;
-      return city || village || town;
+      return city_district || village || town || city;
     } catch (error) {
       console.log(error);
     }
