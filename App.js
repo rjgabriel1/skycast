@@ -15,6 +15,8 @@ import { WeatherAPI } from "./api/weather";
 export default function App() {
   const [coordinates, setCoordinates] = useState();
   const [weather, setWeather] = useState();
+  const [city, setCity] = useState();
+
   const [isFontLoaded] = useFonts({
     "Alata-Regular": require("./assets/fonts/Alata-Regular.ttf"),
   });
@@ -27,17 +29,29 @@ export default function App() {
   useEffect(() => {
     if (coordinates) {
       fetchWeatherFromCoords(coordinates);
+      fetchCityFromCoords(coordinates);
     }
   }, [coordinates]);
 
-  async function fetchWeatherFromCoords(coordinates) {
+  async function fetchWeatherFromCoords(coords) {
     try {
-      const weatherRes = await WeatherAPI.fetchWeatherByCoords(coordinates);
+      const weatherRes = await WeatherAPI.fetchWeatherByCoords(coords);
       console.log(weatherRes);
       setWeather(weatherRes);
     } catch (error) {
       console.error("Error fetching weather data:", error);
       setWeather(null); // or handle the error state as needed
+    }
+  }
+
+  async function fetchCityFromCoords(coords) {
+    try {
+      const cityRes = await WeatherAPI.getCityByCoords(coords);
+      console.log(cityRes);
+      setCity(cityRes);
+    } catch (error) {
+      console.error("Error fetching weather data:", error);
+      setCity(null); // or handle the error state as needed
     }
   }
 
@@ -62,7 +76,7 @@ export default function App() {
     >
       <SafeAreaProvider>
         <SafeAreaView style={s.container}>
-          {isFontLoaded && weather&& <Home weather={weather} />}
+          {isFontLoaded && weather && <Home city={city} weather={weather} />}
         </SafeAreaView>
       </SafeAreaProvider>
     </ImageBackground>
