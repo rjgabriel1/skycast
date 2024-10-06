@@ -5,15 +5,15 @@ export default function WeatherAdvanced({ sunrise, sunset, windSpeed }) {
   return (
     <View style={s.advanced_container}>
       <StyledContainer>
-        <StyledValue>123{sunrise}</StyledValue>
+        <StyledValue>{sunrise}</StyledValue>
         <StyledLabel>Sunrise</StyledLabel>
       </StyledContainer>
       <StyledContainer>
-        <StyledValue>123{sunset}</StyledValue>
+        <StyledValue>{sunset}</StyledValue>
         <StyledLabel>Sunset</StyledLabel>
       </StyledContainer>
       <StyledContainer>
-        <StyledValue>123{windSpeed}</StyledValue>
+        <StyledValue>{windSpeed} km/h</StyledValue>
         <StyledLabel>Wind speed</StyledLabel>
       </StyledContainer>
     </View>
