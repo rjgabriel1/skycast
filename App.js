@@ -1,6 +1,7 @@
 import { s } from "./App.style";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import Home from "./pages/Home/Home";
+import Forecast from "./pages/Forecast/Forecast";
 import { ImageBackground } from "react-native";
 import background from "./assets/background.png";
 import { useEffect, useState } from "react";
@@ -9,9 +10,16 @@ import {
   getCurrentPositionAsync,
 } from "expo-location";
 import { useFonts } from "expo-font";
-
 import { WeatherAPI } from "./api/weather";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
+const Stack = createNativeStackNavigator();
+const navTheme = {
+  colors: {
+    background: "transparent",
+  },
+};
 export default function App() {
   const [coordinates, setCoordinates] = useState();
   const [weather, setWeather] = useState();
@@ -66,16 +74,28 @@ export default function App() {
   }
 
   return (
-    <ImageBackground
-      source={background}
-      style={s.img_background}
-      imageStyle={s.img}
-    >
-      <SafeAreaProvider>
-        <SafeAreaView style={s.container}>
-          {isFontLoaded && weather && <Home city={city} weather={weather} />}
-        </SafeAreaView>
-      </SafeAreaProvider>
-    </ImageBackground>
+    <NavigationContainer theme={navTheme}>
+      <ImageBackground
+        source={background}
+        style={s.img_background}
+        imageStyle={s.img}
+      >
+        <SafeAreaProvider>
+          <SafeAreaView style={s.container}>
+            {isFontLoaded && weather && (
+              <Stack.Navigator
+                initialRouteName="Home"
+                screenOptions={{ headerShown: false }}
+              >
+                <Stack.Screen name="Home">
+                  {() => <Home city={city} weather={weather} />}
+                </Stack.Screen>
+                <Stack.Screen name="Forecast" component={Forecast} />
+              </Stack.Navigator>
+            )}
+          </SafeAreaView>
+        </SafeAreaProvider>
+      </ImageBackground>
+    </NavigationContainer>
   );
 }
