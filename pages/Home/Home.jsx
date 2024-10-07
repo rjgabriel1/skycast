@@ -4,6 +4,7 @@ import Txt from "../../components/Txt/Txt";
 import WeatherBasic from "../../components/WeatherBasic/WeatherBasic";
 import { getWeatherInterpretation } from "../../utils/weather-utils";
 import WeatherAdvanced from "../../components/WeatherAdvanced/WeatherAdvanced";
+import SearchBar from "../../components/SearchBar/SearchBar";
 
 export default function Home({ weather, city }) {
   const CurrentWeather = weather?.current_weather;
@@ -17,14 +18,14 @@ export default function Home({ weather, city }) {
     <>
       <View style={s.meteo_basic}>
         <WeatherBasic
-          dailyWeather ={weather.daily}
+          dailyWeather={weather.daily}
           temperature={Math.round(CurrentWeather.temperature)}
           interpretation={currentInterpretation}
           city={city}
         />
       </View>
       <View style={s.search_container}>
-        <Txt>Input Section</Txt>
+        <SearchBar />
       </View>
       <View style={s.meteo_advanced}>
         <WeatherAdvanced
