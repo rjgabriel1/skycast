@@ -8,7 +8,7 @@ export default function ListItem({ image, day, date, temperature }) {
       <Image source={image} style={s.image} />
       <Txt style={s.day}>{day}</Txt>
       <Txt style={s.date}>{date}</Txt>
-      <Txt style={s.temp}>{temperature}</Txt>
+      <Txt style={s.temp}>{temperature?.toFixed(0)}°</Txt>
     </View>
   );
 }

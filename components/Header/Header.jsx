@@ -7,7 +7,7 @@ export default function Header({ city }) {
   const nav = useNavigation();
   return (
     <View style={s.container}>
-      <TouchableOpacity onPress={() => nav.goBack} style={s.back_btn}>
+      <TouchableOpacity onPress={nav.goBack} style={s.back_btn}>
         <Txt>{"<"}</Txt>
       </TouchableOpacity>
       <View style={s.header_texts}>
