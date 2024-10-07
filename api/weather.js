@@ -15,15 +15,28 @@ class WeatherAPI {
   static async getCityByCoords(coords) {
     try {
       const {
-        address: { city, village, town, city_district },
+        address: { city, village, town, city_district, name },
       } = (
         await axios.get(
           `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${coords.lat}&lon=${coords.lng}`
         )
       ).data;
-      return city_district || village || town || city;
+      return city || name || village || town || city_district;
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  static async fetchCoordsByCity(city) {
+    try {
+      const { latitude: lat, longitude: lng } = (
+        await axios.get(
+          `https://customer-geocoding-api.open-meteo.com/v1/search?apikey=&name=${city}&count=1&language=en&format=json`
+        )
+      ).data.results[0];
+      return { lat, lng };
+    } catch (error) {
+      throw "Invalid city name";
     }
   }
 }

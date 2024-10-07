@@ -2,7 +2,7 @@ import { s } from "./App.style";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import Home from "./pages/Home/Home";
 import Forecast from "./pages/Forecast/Forecast";
-import { ImageBackground } from "react-native";
+import { Alert, ImageBackground } from "react-native";
 import background from "./assets/background.png";
 import { useEffect, useState } from "react";
 import {
@@ -59,6 +59,14 @@ export default function App() {
       setCity(null); // or handle the error state as needed
     }
   }
+  async function fetchCoordsbyCity(city) {
+    try {
+      const coordsRes = await WeatherAPI.fetchCoordsByCity(city);
+      setCoordinates(coordsRes);
+    } catch (error) {
+      Alert.alert("Aouch!", error);
+    }
+  }
 
   async function getUserCoordinates() {
     const { status } = await requestForegroundPermissionsAsync();
@@ -69,7 +77,7 @@ export default function App() {
         lng: location.coords.longitude,
       });
     } else {
-      setCoordinates({ lat: "48.85", lng: "2.35" });
+      setCoordinates({ lat: "17.99702", lng: "-76.79358" });
     }
   }
 
@@ -88,7 +96,13 @@ export default function App() {
                 screenOptions={{ headerShown: false, animation: "fade" }}
               >
                 <Stack.Screen name="Home">
-                  {() => <Home city={city} weather={weather} />}
+                  {() => (
+                    <Home
+                      city={city}
+                      weather={weather}
+                      onSubmitSearch={fetchCoordsbyCity}
+                    />
+                  )}
                 </Stack.Screen>
                 <Stack.Screen name="Forecast" component={Forecast} />
               </Stack.Navigator>
